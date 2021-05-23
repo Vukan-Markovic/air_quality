@@ -1,11 +1,11 @@
 {
-    "name": "air_quality",
-    "short_name": "air_quality",
+    "name": "Air quality",
+    "short_name": "Air quality",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#673AB7",
+    "theme_color": "#673AB7",
+    "description": "A air quality Flutter app.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

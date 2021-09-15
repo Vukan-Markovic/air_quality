@@ -9,12 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^5.0.0
   google_fonts: ^2.1.0
-  dio: ^4.0.0
-  json_annotation: ^4.0.1
+  get_it: ^7.2.0
+  http: ^0.13.3
+  url_launcher: ^6.0.9
   intl: ^0.17.0
-  fl_chart: ^0.36.1
+  fluttertoast: ^8.0.7
+  logger: 1.0.0
   geolocator: ^7.0.3
 
 flutter_icons:
@@ -25,8 +26,6 @@ flutter_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.0.3
-  json_serializable: ^4.1.2
   flutter_launcher_icons: ^0.9.0
   flutter_lints: ^1.0.4
   
@@ -35,3 +34,4 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/json/

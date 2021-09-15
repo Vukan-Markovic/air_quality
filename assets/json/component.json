@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "shortName": "SO2",
+    "matrix": "air",
+    "name": "Sulphur dioxide",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 5,
+    "shortName": "PM10",
+    "matrix": "aerosol",
+    "name": "Particulate matter < 10 µm",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 7,
+    "shortName": "O3",
+    "matrix": "air",
+    "name": "Ozone",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 8,
+    "shortName": "NO2",
+    "matrix": "air",
+    "name": "Nitrogen dioxide",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 9,
+    "shortName": "NOX",
+    "matrix": "air",
+    "name": "Nitrogen oxides",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 10,
+    "shortName": "CO",
+    "matrix": "air",
+    "name": "Carbon monoxide",
+    "unit": "mg/m3"
+  },
+  {
+    "id": 20,
+    "shortName": "B",
+    "matrix": "air",
+    "name": "Benzene",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 21,
+    "shortName": "Toluene",
+    "matrix": "air",
+    "name": "Toluene C6H5-CH3",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 32,
+    "shortName": "THC (NM)",
+    "matrix": "air",
+    "name": "Total non-methane hydrocarbons",
+    "unit": "ug C.m-3"
+  },
+  {
+    "id": 38,
+    "shortName": "NO",
+    "matrix": "air",
+    "name": "Nitrogen monoxide",
+    "unit": "µg N/m3"
+  },
+  {
+    "id": 431,
+    "shortName": "Ethyl benzene",
+    "matrix": "air",
+    "name": "Ethyl benzene C6H5-C2H5",
+    "unit": "pptv"
+  },
+  {
+    "id": 464,
+    "shortName": "mp-Xylene",
+    "matrix": "air",
+    "name": "mp-Xylene mp-C6H4(CH3)2",
+    "unit": "pptv"
+  },
+  {
+    "id": 482,
+    "shortName": "o-Xylene",
+    "matrix": "air",
+    "name": "o-Xylene o-C6H4-(CH3)2",
+    "unit": "pptv"
+  },
+  {
+    "id": 6001,
+    "shortName": "PM2.5",
+    "matrix": "aerosol",
+    "name": "Particulate matter < 2.5 µm",
+    "unit": "µg/m3"
+  },
+  {
+    "id": 6002,
+    "shortName": "PM1",
+    "matrix": "aerosol",
+    "name": "Particulate matter < 1 µm",
+    "unit": "µg/m3"
+  }
+]

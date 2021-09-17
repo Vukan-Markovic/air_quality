@@ -10,9 +10,11 @@ class CityItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(city.station.city),
-      subtitle: Text('${city.station.stationClassification}, SEPA'),
-      trailing: Text(city.value.toString()),
+      title: Text(city.station.name),
+      subtitle: Text(
+        '${city.station.stationClassification}, ${city.station.areaClassification}',
+      ),
+      trailing: Text(city.value.last.toString()),
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => CityDetailsPage(city: city),

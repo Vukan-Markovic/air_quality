@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Component {
   final int id;
   final String shortName;
@@ -16,9 +14,6 @@ class Component {
         map['name'],
         map['unit'],
       );
-
-  factory Component.fromJson(String source) =>
-      Component.fromMap(json.decode(source));
 
   @override
   String toString() =>

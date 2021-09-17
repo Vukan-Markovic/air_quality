@@ -3,8 +3,8 @@ import 'station.dart';
 
 class City {
   final Station station;
-  final Component component;
-  final double value;
+  final List<Component> component;
+  final List<double> value;
 
   City(this.station, this.component, this.value);
 

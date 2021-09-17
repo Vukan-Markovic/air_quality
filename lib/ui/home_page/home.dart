@@ -33,14 +33,15 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              '${DateFormat('dd.MM.yyyy. HH:mm').format(
-                DateTime(
-                  DateTime.now().day,
-                  DateTime.now().month,
-                  DateTime.now().year,
-                  DateTime.now().hour - 2,
+              '${DateFormat('dd.MM.yyyy. HH').format(
+                DateTime.now().subtract(
+                  const Duration(hours: 2),
                 ),
-              )} - ${DateFormat('HH:mm').format(DateTime(DateTime.now().hour - 1))}',
+              )}:00 - ${DateFormat('HH').format(
+                DateTime.now().subtract(
+                  const Duration(hours: 2),
+                ),
+              )}:59',
               style: const TextStyle(
                 fontSize: 18.0,
               ),

@@ -95,7 +95,8 @@ class _HomePageState extends State<HomePage> {
                   case ServerError:
                     return Expanded(
                       child: ErrorScreen(
-                        message: 'Greška na serveru! Pokušajte ponovo.',
+                        message:
+                            'Greška u dobavljanju podataka! Pokušajte ponovo.',
                         retryCallback: _getData,
                       ),
                     );

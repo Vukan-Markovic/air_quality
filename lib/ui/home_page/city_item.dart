@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 import '../../models/city.dart';
 import '../../models/grade.dart';
 import '../city_details_page/city_details.dart';
@@ -22,20 +21,20 @@ class _CityItemState extends State<CityItem> {
   @override
   void initState() {
     super.initState();
-    logger.d(widget.city.values);
-    widget.city.grades!.forEach((element) {
-      logger.e(element.name + element.value.toString());
-    });
 
-    grade = widget.city.grades!.reduce((a, b) {
-      if (a.value < b.value) {
-        return a;
-      } else {
-        return b;
-      }
-    });
+    grade = widget.city.grades!.isNotEmpty
+        ? widget.city.grades!.reduce((a, b) {
+            if (a.value < b.value) {
+              return a;
+            } else {
+              return b;
+            }
+          })
+        : Grade('', 6);
 
-    value = widget.city.values[widget.city.grades!.indexOf(grade)];
+    value = widget.city.grades!.isNotEmpty
+        ? widget.city.values[widget.city.grades!.indexOf(grade)]
+        : 0;
 
     if (grade.value == 5) {
       textColor = Colors.green;
@@ -77,7 +76,7 @@ class _CityItemState extends State<CityItem> {
               ],
             ),
             const Spacer(),
-            value != null
+            value != null && value != 0
                 ? Text(
                     value!.toStringAsFixed(2),
                     style: TextStyle(
@@ -87,7 +86,7 @@ class _CityItemState extends State<CityItem> {
                     ),
                   )
                 : const Text('nepoznato'),
-            if (value != 0.0) ...[
+            if (value != 0.0 && grade.name.isNotEmpty) ...[
               const SizedBox(width: 8.0),
               Text(
                 '(${grade.name})',

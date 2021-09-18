@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import '../../main.dart';
 import 'city_details_item.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -118,7 +117,7 @@ class CityDetailsPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () async => await canLaunch(Uri.encodeFull(agencyUrl))
                       ? await launch(Uri.encodeFull(agencyUrl))
-                      : logger.e('Could not launch $agencyUrl'),
+                      : null,
                   child: const Text(
                     agencyUrl,
                     style: TextStyle(

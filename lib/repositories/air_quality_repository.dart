@@ -7,7 +7,6 @@ import 'package:universal_io/io.dart';
 
 import '../blocs/air_quality_state.dart';
 import '../constants.dart';
-import '../main.dart';
 import '../models/city.dart';
 import '../models/component.dart';
 import '../models/grade.dart';
@@ -155,35 +154,46 @@ class AirQualityRepository {
                 } else if (value > 400) {
                   city.grades?.add(Grade(city.components[index].shortName, 1));
                 }
+              } else {
+                city.grades?.add(Grade('', 6));
               }
+            } else {
+              city.grades?.add(Grade('', 6));
             }
           }
         }
 
         return AirQualityData(cities.sorted(
-          (a, b) => a.grades!.reduce((a, b) {
-            if (a.value < b.value) {
-              return a;
-            } else {
-              return b;
+          (a, b) {
+            if (a.grades!.isNotEmpty && b.grades!.isNotEmpty) {
+              return a.grades!.reduce((a, b) {
+                if (a.value < b.value) {
+                  return a;
+                } else {
+                  return b;
+                }
+              }).compareTo(b.grades!.reduce((a, b) {
+                if (a.value < b.value) {
+                  return a;
+                } else {
+                  return b;
+                }
+              }));
             }
-          }).compareTo(b.grades!.reduce((a, b) {
-            if (a.value < b.value) {
-              return a;
-            } else {
-              return b;
-            }
-          })),
+
+            return 0;
+          },
         ));
       } else {
-        logger.e('Error getting air quality data, response: ${response.body}');
         return ServerError();
       }
     } on SocketException {
-      logger.e('No internet connection!');
       return OfflineError();
     } catch (error) {
-      logger.e('Error: $error!');
+      if (error == 'XMLHttpRequest error.') {
+        return OfflineError();
+      }
+
       return ServerError();
     }
   }

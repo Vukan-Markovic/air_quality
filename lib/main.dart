@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 import 'service_locator.dart';
 import 'ui/home_page/home.dart';
-
-final logger = Logger();
 
 void main() {
   setupGetIt();

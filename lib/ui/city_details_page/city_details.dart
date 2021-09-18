@@ -1,5 +1,5 @@
-import 'package:air_quality/main.dart';
-import 'package:air_quality/ui/city_details_page/city_details_item.dart';
+import '../../main.dart';
+import 'city_details_item.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../constants.dart';
@@ -23,6 +23,7 @@ class CityDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(city.station.name)),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const ScrollPhysics(),
@@ -82,21 +83,25 @@ class CityDetailsPage extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: 48.0),
-              const Text(
-                'Komponente zagađenosti vazduha',
-                style: TextStyle(fontSize: 24.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'Komponente zagađenosti vazduha',
+                  style: TextStyle(fontSize: 24.0),
+                ),
               ),
               const SizedBox(height: 24.0),
               ListView.separated(
                 separatorBuilder: (context, index) => divider,
-                itemCount: city.component.length,
+                itemCount: city.components.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) => CityDetailsItem(
                   attribute:
-                      '${city.component[index].shortName} (${city.component[index].name})',
-                  value:
-                      '${city.value[index].toStringAsFixed(2)} ${city.component[index].unit} (${city.component[index].matrix})',
+                      '${city.components[index].shortName} (${city.components[index].name})',
+                  value: city.values[index] != null
+                      ? '${city.values[index]?.toStringAsFixed(2)} ${city.components[index].unit} (${city.components[index].matrix})'
+                      : 'nepoznato',
                 ),
               ),
               divider,

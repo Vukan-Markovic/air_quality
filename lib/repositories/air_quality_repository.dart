@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:air_quality/models/component.dart';
-import 'package:air_quality/models/station.dart';
+import '../blocs/air_quality_state.dart';
+import '../models/component.dart';
+import '../models/grade.dart';
+import '../models/station.dart';
 import 'package:collection/collection.dart';
 
 import '../models/city.dart';
@@ -16,7 +18,7 @@ import '../service_locator.dart';
 class AirQualityRepository {
   final _httpService = getIt.get<HttpService>();
 
-  Future<List<City>?> getCitiesData() async {
+  Future<AirQualityState> getCitiesData() async {
     try {
       final now = DateTime.now();
 
@@ -44,7 +46,7 @@ class AirQualityRepository {
 
         final components = jsonDecode(jsonStringComponent) as List<dynamic>;
 
-        return List<City>.from(
+        final cities = List<City>.from(
           records.entries.map(
             (record) => City(
               Station.fromMap(
@@ -66,7 +68,7 @@ class AirQualityRepository {
                     )
                     .toList(),
               ),
-              List<double>.from(
+              List<double?>.from(
                 record.value
                     .map((r) => (r as Map<String, dynamic>)['value'])
                     .toList(),
@@ -75,23 +77,114 @@ class AirQualityRepository {
           ),
         );
 
-        // for (var city in cities) {
-        // final response = await _httpService.get(
-        //   '$baseUrlAqicn${city.station.name}/?token=0e5c4296b0100658a6796fdb1b1e3d21a2ed5037',
-        // );
+        for (var city in cities) {
+          city.grades = [];
 
-        // city.component.add(
-        //   Component(0, 'AQI', '', 'Indeks kvaliteta vazduha', ''),
-        // );
+          for (var index = 0; index < city.values.length; index++) {
+            final value = city.values[index];
+            if (value != null) {
+              if (city.components[index].id == 1) {
+                if (value >= 0 && value <= 50) {
+                  city.grades?.add(Grade(city.components[index].shortName, 5));
+                } else if (value > 50 && value <= 100) {
+                  city.grades?.add(Grade(city.components[index].shortName, 4));
+                } else if (value > 100 && value <= 350) {
+                  city.grades?.add(Grade(city.components[index].shortName, 3));
+                } else if (value > 350 && value <= 500) {
+                  city.grades?.add(Grade(city.components[index].shortName, 2));
+                } else if (value > 500) {
+                  city.grades?.add(Grade(city.components[index].shortName, 1));
+                }
+              } else if (city.components[index].id == 7) {
+                if (value >= 0 && value <= 60) {
+                  city.grades?.add(Grade(city.components[index].shortName, 5));
+                } else if (value > 60 && value <= 120) {
+                  city.grades?.add(Grade(city.components[index].shortName, 4));
+                } else if (value > 120 && value <= 180) {
+                  city.grades?.add(Grade(city.components[index].shortName, 3));
+                } else if (value > 180 && value <= 240) {
+                  city.grades?.add(Grade(city.components[index].shortName, 2));
+                } else if (value > 240) {
+                  city.grades?.add(Grade(city.components[index].shortName, 1));
+                }
+              } else if (city.components[index].id == 10) {
+                if (value >= 0 && value <= 5) {
+                  city.grades?.add(Grade(city.components[index].shortName, 5));
+                } else if (value > 5 && value <= 10) {
+                  city.grades?.add(Grade(city.components[index].shortName, 4));
+                } else if (value > 10 && value <= 25) {
+                  city.grades?.add(Grade(city.components[index].shortName, 3));
+                } else if (value > 25 && value <= 50) {
+                  city.grades?.add(Grade(city.components[index].shortName, 2));
+                } else if (value > 50) {
+                  city.grades?.add(Grade(city.components[index].shortName, 1));
+                }
+              } else if (city.components[index].id == 6001) {
+                if (value >= 0 && value <= 15) {
+                  city.grades?.add(Grade(city.components[index].shortName, 5));
+                } else if (value > 15 && value <= 30) {
+                  city.grades?.add(Grade(city.components[index].shortName, 4));
+                } else if (value > 30 && value <= 55) {
+                  city.grades?.add(Grade(city.components[index].shortName, 3));
+                } else if (value > 55 && value <= 110) {
+                  city.grades?.add(Grade(city.components[index].shortName, 2));
+                } else if (value > 110) {
+                  city.grades?.add(Grade(city.components[index].shortName, 1));
+                }
+              } else if (city.components[index].id == 5) {
+                if (value >= 0 && value <= 25) {
+                  city.grades?.add(Grade(city.components[index].shortName, 5));
+                } else if (value > 25 && value <= 50) {
+                  city.grades?.add(Grade(city.components[index].shortName, 4));
+                } else if (value > 50 && value <= 90) {
+                  city.grades?.add(Grade(city.components[index].shortName, 3));
+                } else if (value > 90 && value <= 180) {
+                  city.grades?.add(Grade(city.components[index].shortName, 2));
+                } else if (value > 180) {
+                  city.grades?.add(Grade(city.components[index].shortName, 1));
+                }
+              } else if (city.components[index].id == 8) {
+                if (value >= 0 && value <= 50) {
+                  city.grades?.add(Grade(city.components[index].shortName, 5));
+                } else if (value > 50 && value <= 100) {
+                  city.grades?.add(Grade(city.components[index].shortName, 4));
+                } else if (value > 100 && value <= 150) {
+                  city.grades?.add(Grade(city.components[index].shortName, 3));
+                } else if (value > 150 && value <= 400) {
+                  city.grades?.add(Grade(city.components[index].shortName, 2));
+                } else if (value > 400) {
+                  city.grades?.add(Grade(city.components[index].shortName, 1));
+                }
+              }
+            }
+          }
+        }
 
-        // logger.e(jsonDecode(response.body)['data']);
-        // city.value.add(jsonDecode(response.body)['data']['aqi']);
-        // }
+        return AirQualityData(cities.sorted(
+          (a, b) => a.grades!.reduce((a, b) {
+            if (a.value < b.value) {
+              return a;
+            } else {
+              return b;
+            }
+          }).compareTo(b.grades!.reduce((a, b) {
+            if (a.value < b.value) {
+              return a;
+            } else {
+              return b;
+            }
+          })),
+        ));
       } else {
         logger.e('Error getting air quality data, response: ${response.body}');
+        return ServerError();
       }
     } on SocketException {
       logger.e('No internet connection!');
+      return OfflineError();
+    } catch (error) {
+      logger.e('Error: $error!');
+      return ServerError();
     }
   }
 }

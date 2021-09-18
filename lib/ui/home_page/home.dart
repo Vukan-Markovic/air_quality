@@ -1,3 +1,5 @@
+import 'error_screen.dart';
+
 import '../../blocs/air_quality_bloc.dart';
 import '../../blocs/air_quality_state.dart';
 import 'package:flutter/material.dart';
@@ -27,23 +29,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Air quality')),
+      appBar: AppBar(title: const Text('Kvalitet vazduha')),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '${DateFormat('dd.MM.yyyy. HH').format(
-                DateTime.now().subtract(
-                  const Duration(hours: 2),
+            child: SizedBox(
+              width: double.infinity,
+              child: Text(
+                '${DateFormat('dd.MM.yyyy. HH').format(
+                  DateTime.now().subtract(
+                    const Duration(hours: 2),
+                  ),
+                )}:00 - ${DateFormat('HH').format(
+                  DateTime.now().subtract(
+                    const Duration(hours: 2),
+                  ),
+                )}:59',
+                style: const TextStyle(
+                  fontSize: 18.0,
                 ),
-              )}:00 - ${DateFormat('HH').format(
-                DateTime.now().subtract(
-                  const Duration(hours: 2),
-                ),
-              )}:59',
-              style: const TextStyle(
-                fontSize: 18.0,
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -56,14 +63,43 @@ class _HomePageState extends State<HomePage> {
                     return Expanded(
                       child: CitiesList(
                         cities: (snapshot.data as AirQualityData).cityItems,
+                        refreshData: _getData,
+                      ),
+                    );
+
+                  case OfflineError:
+                    return Expanded(
+                      child: ErrorScreen(
+                        message:
+                            'Internet nije dostupan! Obezbedite konekciju i pokušajte ponovo.',
+                        retryCallback: _getData,
+                      ),
+                    );
+
+                  case ServerError:
+                    return Expanded(
+                      child: ErrorScreen(
+                        message: 'Greška na serveru! Pokušajte ponovo.',
+                        retryCallback: _getData,
+                      ),
+                    );
+
+                  case LoadingAirQualityData:
+                    return const Expanded(
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.deepPurple,
+                        ),
                       ),
                     );
                 }
               }
 
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.deepPurple,
+              return const Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.deepPurple,
+                  ),
                 ),
               );
             },
@@ -71,5 +107,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Future<void> _getData() async {
+    await _airQualityBloc.getCitiesData();
+    _citiesStream = _airQualityBloc.airQualityStream;
   }
 }

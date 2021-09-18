@@ -11,7 +11,8 @@ class AirQualityBloc {
 
   Stream<AirQualityState> get airQualityStream => _streamController.stream;
 
-  Future<void> getCitiesData() async => _streamController.sink.add(
-        AirQualityData(await _airQualityRepository.getCitiesData() ?? []),
-      );
+  Future<void> getCitiesData() async {
+    _streamController.sink.add(LoadingAirQualityData());
+    _streamController.sink.add(await _airQualityRepository.getCitiesData());
+  }
 }

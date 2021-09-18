@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'error_screen.dart';
 
 import '../../blocs/air_quality_bloc.dart';
@@ -29,7 +31,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Kvalitet vazduha')),
+      appBar: AppBar(
+        title: const Text('Kvalitet vazduha'),
+        actions: [
+          if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
+            IconButton(
+              onPressed: _getData,
+              icon: const Icon(
+                Icons.refresh,
+              ),
+            )
+        ],
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

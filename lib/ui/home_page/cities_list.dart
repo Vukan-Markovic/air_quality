@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../models/city.dart';
 import 'package:flutter/material.dart';
 
@@ -17,10 +19,16 @@ class CitiesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: refreshData,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (context, index) => CityItem(city: cities[index]),
-        itemCount: cities.length,
+      child: Scrollbar(
+        isAlwaysShown:
+            Platform.isWindows || Platform.isLinux || Platform.isMacOS
+                ? true
+                : false,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (context, index) => CityItem(city: cities[index]),
+          itemCount: cities.length,
+        ),
       ),
     );
   }

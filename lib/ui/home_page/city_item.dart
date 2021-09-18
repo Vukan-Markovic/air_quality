@@ -1,11 +1,9 @@
-import '../../main.dart';
-import '../../models/grade.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
-
-import '../../models/city.dart';
-import '../city_details_page/city_details.dart';
 import 'package:flutter/material.dart';
+
+import '../../main.dart';
+import '../../models/city.dart';
+import '../../models/grade.dart';
+import '../city_details_page/city_details.dart';
 
 class CityItem extends StatefulWidget {
   final City city;

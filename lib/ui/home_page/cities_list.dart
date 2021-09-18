@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import '../../models/city.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +20,11 @@ class CitiesList extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: refreshData,
       child: Scrollbar(
-        isAlwaysShown:
-            Platform.isWindows || Platform.isLinux || Platform.isMacOS
-                ? true
-                : false,
+        isAlwaysShown: defaultTargetPlatform == TargetPlatform.windows ||
+                defaultTargetPlatform == TargetPlatform.linux ||
+                defaultTargetPlatform == TargetPlatform.macOS
+            ? true
+            : false,
         child: ListView.builder(
           shrinkWrap: true,
           itemBuilder: (context, index) => CityItem(city: cities[index]),

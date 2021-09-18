@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import 'error_screen.dart';
 
@@ -34,7 +34,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Kvalitet vazduha'),
         actions: [
-          if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
+          if (defaultTargetPlatform == TargetPlatform.windows ||
+              defaultTargetPlatform == TargetPlatform.linux ||
+              defaultTargetPlatform == TargetPlatform.macOS ||
+              kIsWeb)
             IconButton(
               onPressed: _getData,
               icon: const Icon(

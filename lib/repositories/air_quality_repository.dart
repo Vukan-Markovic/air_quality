@@ -1,19 +1,19 @@
 import 'dart:convert';
-import 'dart:io';
+
+import 'package:collection/collection.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:universal_io/io.dart';
+
 import '../blocs/air_quality_state.dart';
+import '../constants.dart';
+import '../main.dart';
+import '../models/city.dart';
 import '../models/component.dart';
 import '../models/grade.dart';
 import '../models/station.dart';
-import 'package:collection/collection.dart';
-
-import '../models/city.dart';
-import '../services/http_service.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-
-import '../constants.dart';
-import '../main.dart';
 import '../service_locator.dart';
+import '../services/http_service.dart';
 
 class AirQualityRepository {
   final _httpService = getIt.get<HttpService>();

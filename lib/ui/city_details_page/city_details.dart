@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import '../../main.dart';
 import 'city_details_item.dart';
@@ -28,10 +28,11 @@ class CityDetailsPage extends StatelessWidget {
       appBar: AppBar(title: Text(city.station.name)),
       body: SafeArea(
         child: Scrollbar(
-          isAlwaysShown:
-              Platform.isWindows || Platform.isLinux || Platform.isMacOS
-                  ? true
-                  : false,
+          isAlwaysShown: defaultTargetPlatform == TargetPlatform.windows ||
+                  defaultTargetPlatform == TargetPlatform.linux ||
+                  defaultTargetPlatform == TargetPlatform.macOS
+              ? true
+              : false,
           child: SingleChildScrollView(
             physics: const ScrollPhysics(),
             child: Column(

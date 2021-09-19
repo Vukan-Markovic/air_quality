@@ -55,7 +55,7 @@ class CityDetailsPage extends StatelessWidget {
                 ),
                 divider,
                 CityDetailsItem(
-                  attribute: 'Pripada mreži',
+                  attribute: 'Grad',
                   value: city.station.city,
                 ),
                 if (city.station.stationClassification != null) ...[
@@ -87,6 +87,44 @@ class CityDetailsPage extends StatelessWidget {
                   CityDetailsItem(
                     attribute: 'Nadmorska visina',
                     value: '${city.station.altitude.toString()}m',
+                  ),
+                ],
+                if (city.station.charOfZone != null) ...[
+                  divider,
+                  CityDetailsItem(
+                    attribute: 'Izvor zagađenja',
+                    value: city.station.charOfZone!,
+                  ),
+                ],
+                if (city.station.ozoneClassification != null) ...[
+                  divider,
+                  CityDetailsItem(
+                    attribute: 'Klasifikacija ozona',
+                    value: city.station.ozoneClassification!,
+                  ),
+                ],
+                if (city.station.mainEmissionSource != null) ...[
+                  divider,
+                  CityDetailsItem(
+                    attribute: 'Glavni izvor emisije',
+                    value: city.station.mainEmissionSource!,
+                  ),
+                ],
+                if (city.station.cityPopulation != null) ...[
+                  divider,
+                  CityDetailsItem(
+                    attribute: 'Gradsko stanovništvo',
+                    value: city.station.cityPopulation! > 1000 &&
+                            city.station.cityPopulation! < 9999
+                        ? '${city.station.cityPopulation.toString().substring(0, 1)} ${city.station.cityPopulation.toString().substring(1, 4)} 000'
+                        : '${city.station.cityPopulation.toString()} 000',
+                  ),
+                ],
+                if (city.station.streetName != null) ...[
+                  divider,
+                  CityDetailsItem(
+                    attribute: 'Naziv ulice',
+                    value: city.station.streetName!,
                   ),
                 ],
                 const SizedBox(height: 48.0),
